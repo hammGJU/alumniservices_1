@@ -30,7 +30,7 @@ public class Student implements Serializable {
     private double yearsExperience;
     private String facebookLink;
     private String linkedInLink;
-    private List<Email> email;
+    private List<Email> emails;
     private GraduationYear gradYear;
     private GraduationSemester gradSemester;
     private StudentJob studentJob;
@@ -147,13 +147,15 @@ public class Student implements Serializable {
         this.linkedInLink = linkedInLink;
     }
 
-    public List<Email> getEmail() {
-        return email;
+    public List<Email> getEmails() {
+        return emails;
     }
 
-    public void setEmail(List<Email> email) {
-        this.email = email;
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
     }
+
+    
 
     public GraduationYear getGradYear() {
         return gradYear;

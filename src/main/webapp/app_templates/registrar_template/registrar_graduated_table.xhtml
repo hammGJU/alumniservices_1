@@ -35,13 +35,13 @@
                                   sortBy="#{student.id}">
                             <h:outputText value="#{student.lastName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_department}" filterBy="#{student.department}" filterMatchMode="contains"
+                        <p:column headerText="#{msgs.student_department}" filterBy="#{student.department.departmentName}" filterMatchMode="contains"
                                   sortBy="#{student.id}">
-                            <h:outputText value="#{student.department}" />
+                            <h:outputText value="#{student.department.departmentName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_school}" filterBy="#{student.school}" filterMatchMode="contains"
+                        <p:column headerText="#{msgs.student_school}" filterBy="#{student.school.shcoolName}" filterMatchMode="contains"
                                   sortBy="#{student.id}">
-                            <h:outputText value="#{student.school}" />
+                            <h:outputText value="#{student.school.shcoolName}" />
                         </p:column>
                         <f:facet name="footer" class="ui-datatable-footer">
                             <p:toolbar style="border: none">
@@ -99,17 +99,17 @@
                                   sortBy="#{student.lastName}">
                             <h:outputText value="#{student.lastName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_department}" filterBy="#{student.department}" filterMatchMode="contains"
-                                  sortBy="#{student.department}">
-                            <h:outputText value="#{student.department}" />
+                        <p:column headerText="#{msgs.student_department}" filterBy="#{student.department.departmentName}" filterMatchMode="contains"
+                                  sortBy="#{student.department.departmentName}">
+                            <h:outputText value="#{student.department.departmentName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_school}" filterBy="#{student.school}" filterMatchMode="contains"
-                                  sortBy="#{student.school}">
-                            <h:outputText value="#{student.school}" />
+                        <p:column headerText="#{msgs.student_school}" filterBy="#{student.school.shcoolName}" filterMatchMode="contains"
+                                  sortBy="#{student.school.shcoolName}">
+                            <h:outputText value="#{student.school.shcoolName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.status}" filterBy="#{student.school}" filterMatchMode="contains"
-                                  sortBy="#{student.statusId}">
-                            <h:outputText value="#{student.statusId}" />
+                        <p:column headerText="#{msgs.status}" filterBy="#{student.status.statusName}" filterMatchMode="contains"
+                                  sortBy="#{student.status.statusName}">
+                            <h:outputText value="#{student.status.statusName}" />
                         </p:column>
                         <f:facet name="footer" class="ui-datatable-footer">
                             <p:toolbar style="border: none">
@@ -132,7 +132,7 @@
                               modal="true" showEffect="fade" hideEffect="fade" resizable="true" 
                               width="220" dynamic="true">
                         <p:outputPanel id="panel" style="text-align:center;">
-                            <ui:repeat value="#{studentBean.selectedStudent}" var="student">
+                            <ui:repeat value="#{studentBean.selectedStudent}" var="std">
                                 <h:outputText value="#{student.id} - #{student.department}" style="display:block"/>
                                 <h:outputText value="#{student.id} - #{student.department}" style="display:block"/>
                             </ui:repeat>
