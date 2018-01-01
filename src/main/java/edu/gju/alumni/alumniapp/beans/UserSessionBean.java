@@ -58,7 +58,7 @@ public class UserSessionBean implements Serializable {
         if (success) {
             if (facesContext != null) {
 
-                navHandler.handleNavigation(facesContext, null, "/admin/admin_first_page?faces-redirect=true");
+                navHandler.handleNavigation(facesContext, null, "/dsa/dsa_employee_first_page?faces-redirect=true");
             }
         }
 

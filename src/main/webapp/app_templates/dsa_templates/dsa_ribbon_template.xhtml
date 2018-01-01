@@ -90,19 +90,19 @@
                         </p:column>
 
                         <p:column  headerText="#{msgs.school}" styleClass="tableColumn"
-                                   filterBy="#{student.school}" filterMatchMode="contains"
+                                   filterBy="#{student.school.shcoolName}" filterMatchMode="contains"
                                    sortBy="#{student.id}">
-                            <h:outputText value="#{student.school}" />
+                            <h:outputText value="#{student.school.shcoolName}" />
 
 
                         </p:column>
 
-<!--                        <p:column headerText="#{msgs.department}" styleClass="tableColumn"
-                                  filterBy="#{student.department}" filterMatchMode="contains"
+                        <p:column headerText="#{msgs.department}" styleClass="tableColumn"
+                                  filterBy="#{student.department.departmentName}" filterMatchMode="contains"
                                   sortBy="#{student.id}">
-                            <h:outputText value="#{student.department}" />
+                            <h:outputText value="#{student.department.departmentName}" />
 
-                        </p:column>-->
+                        </p:column>
 
                         <p:column headerText="#{msgs.student_nationality}" styleClass="tableColumn"
                                   filterBy="#{student.nationality}" filterMatchMode="contains"
@@ -112,9 +112,9 @@
                         </p:column>
 
                         <p:column headerText="#{msgs.student_degree}" styleClass="tableColumn"
-                                  filterBy="#{student.degree}" filterMatchMode="contains"
+                                  filterBy="#{student.degree.degreeName}" filterMatchMode="contains"
                                   sortBy="#{student.id}">
-                            <h:outputText value="#{student.degree}" />
+                            <h:outputText value="#{student.degree.degreeName}" />
 
                         </p:column>
 
@@ -133,9 +133,9 @@
                         </p:column>
 
                         <p:column headerText="#{msgs.student_job_status}" styleClass="tableColumn"
-                                  filterBy="#{student.statusId}" filterMatchMode="contains"
+                                  filterBy="#{student.status.statusName}" filterMatchMode="contains"
                                   sortBy="#{student.id}">
-                            <h:outputText value="#{student.statusId}" />
+                            <h:outputText value="#{student.status.statusName}" />
 
                         </p:column>
 
