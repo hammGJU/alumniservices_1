@@ -7,7 +7,7 @@ package edu.gju.alumni.alumniapp.daos;
 
 import edu.gju.alumni.alumniapp.daos.annotations.StdDAO;
 import edu.gju.alumni.alumniapp.beans.UserSessionBean;
-import edu.gju.alumni.alumniapp.models.Degree;
+import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Student;
 import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
 import edu.gju.alumni.alumniapp.utils.PopulateModels;
@@ -73,11 +73,21 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
     @Override
     public List<Student> getAllStudents() throws SQLException {
         List<Student> allStudents = new ArrayList<>();
+        List<Email> emails = new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_STUDENTS.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Student s = PopulateModels.populateStudent(rs);
             allStudents.add(s);
+        }
+        ps = connection.prepareStatement(AlumniServEnum.GET_STUDENT_EMAIL.toString());
+        for (Student s : allStudents) {
+            ps.setString(1, s.getId());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                emails = PopulateModels.populateEmail(rs);
+            }
+            s.setEmail(emails);
         }
         rs.close();
         ps.close();

@@ -7,6 +7,7 @@ package edu.gju.alumni.alumniapp.models;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -29,7 +30,7 @@ public class Student implements Serializable {
     private double yearsExperience;
     private String facebookLink;
     private String linkedInLink;
-    private String email;
+    private List<Email> email;
     private GraduationYear gradYear;
     private GraduationSemester gradSemester;
     private StudentJob studentJob;
@@ -146,11 +147,11 @@ public class Student implements Serializable {
         this.linkedInLink = linkedInLink;
     }
 
-    public String getEmail() {
+    public List<Email> getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(List<Email> email) {
         this.email = email;
     }
 

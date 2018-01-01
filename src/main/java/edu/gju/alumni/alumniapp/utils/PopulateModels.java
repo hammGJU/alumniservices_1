@@ -7,6 +7,7 @@ package edu.gju.alumni.alumniapp.utils;
 
 import edu.gju.alumni.alumniapp.models.Degree;
 import edu.gju.alumni.alumniapp.models.Department;
+import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Employee;
 import edu.gju.alumni.alumniapp.models.Gender;
 import edu.gju.alumni.alumniapp.models.GraduationSemester;
@@ -17,6 +18,10 @@ import edu.gju.alumni.alumniapp.models.StudentStatus;
 import edu.gju.alumni.alumniapp.models.UserGroup;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -57,7 +62,6 @@ public class PopulateModels {
         student.setYearsExperience(rs.getDouble(AlumniServEnum.YEARS_OF_EXPERIENCE.toString()));
         student.setFacebookLink(rs.getString(AlumniServEnum.FACEBOOK.toString()));
         student.setLinkedInLink(rs.getString(AlumniServEnum.LINKEDIN.toString()));
-        student.setEmail(rs.getString(AlumniServEnum.STUDENT_EMAIL.toString()));
         gradYear.setId(rs.getString(AlumniServEnum.GRADUATION_YEAR_ID.toString()));
         gradYear.setYearName(rs.getString(AlumniServEnum.YEAR_NAME.toString()));
         student.setGradYear(gradYear);
@@ -65,6 +69,19 @@ public class PopulateModels {
         gradSemester.setSemesterName(rs.getString(AlumniServEnum.SEMESTER_NAME.toString()));
         student.setGradSemester(gradSemester);
         return student;
+    }
+
+    public static List<Email> populateEmail(ResultSet rs) throws SQLException {
+        List<Email> emails = new ArrayList<>();
+        Email email = new Email();
+
+        while (rs.next()) {
+            email.setId(rs.getString(AlumniServEnum.STUDENT_ID.toString()));
+            email.setEmail(AlumniServEnum.STUDENT_EMAIL.toString());
+            emails.add(email);
+
+        }
+        return emails;
     }
 
     public static Employee populateEmployee(ResultSet rs) throws SQLException {

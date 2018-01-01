@@ -28,7 +28,7 @@ and open the template in the editor.
                         <p:outputLabel value="#{msgs.student_name}:" for="student_name_en"/>
                         <p:inputText id="student_name_en"
                                      style="width:600px"
-                                     value="#{studentBean.selectedStudent.firstName} #{studentBean.selectedStudent.lastName}"                                      
+                                     value="#{viewStudent.student.firstName} #{viewStudent.student.lastName}"                                      
                                      required="true"
                                      maxlength="512"
                                      disabled="true"
@@ -38,7 +38,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="#{msgs.student_id}:" for="student_id"/>
                         <p:inputText id="student_id"
-                                     value="#{studentBean.selectedStudent.id}"
+                                     value="#{viewStudent.student.id}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -49,7 +49,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="#{msgs.student_school}:" for="student_schl"/>
                         <p:inputText id="student_schl"
-                                     value="#{studentBean.selectedStudent.school}"
+                                     value="#{viewStudent.student.school.shcoolName}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -60,7 +60,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="#{msgs.student_department}:" for="student_dpt"/>
                         <p:inputText id="student_dpt"
-                                     value="#{studentBean.selectedStudent.department}"
+                                     value="#{viewStudent.student.department.departmentName}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -71,7 +71,7 @@ and open the template in the editor.
 
                         <p:outputLabel value="#{msgs.email}:" for="student_email"/>
                         <p:inputText id="student_email"
-                                     value="#{studentBean.selectedStudent.linkedInLink}"
+                                     value="#{viewStudent.student.email}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
@@ -98,14 +98,14 @@ and open the template in the editor.
                                  iconPos="#{langBean.styleFloat}"
                                  ajax="false"
                                  style="float:#{langBean.styleFloat}"                                                                   
-                                 actionListener="#{addEditEventBean.saveEvent()}" />
+                                 actionListener="#{viewStudent.sendEmail()}" />
                 <p:commandButton value="#{msgs.cancel}"
                                  icon="ui-icon-cancel"  
                                  iconPos="#{langBean.styleFloat}"
                                  styleClass="commandButton"
                                  immediate="true" 
                                  style="float:#{langBean.styleFloat}"                                 
-                                 action="manage_events"  />                                   
+                                 action="/dsa/dsa_employee_first_page"  />                                   
             </h:form>
         </ui:decorate>
     </h:body>

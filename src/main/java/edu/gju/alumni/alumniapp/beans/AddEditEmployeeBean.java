@@ -8,6 +8,7 @@ package edu.gju.alumni.alumniapp.beans;
 import edu.gju.alumni.alumniapp.models.Employee;
 import edu.gju.alumni.alumniapp.models.UserGroup;
 import edu.gju.alumni.alumniapp.services.EmployeeService;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,7 @@ import javax.inject.Named;
  */
 @RequestScoped
 @Named(value = "addEditEmployee")
-public class AddEditEmployeeBean {
+public class AddEditEmployeeBean implements Serializable{
 
     private Employee employee;
     private Employee editedEmployee;
