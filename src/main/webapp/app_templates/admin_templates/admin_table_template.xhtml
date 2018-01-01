@@ -61,7 +61,14 @@
                                          styleClass="commandButton"
                                          immediate="true" 
                                          style="float:#{langBean.styleFloat}"                                 
-                                         action="admin_first_page"  />
+                                         actionListener="#{employeeBean.deleteEmployee()}"
+                                         update="table_employees">
+                            <p:confirm header="#{msgs.emp_confirm_delete}" message="#{msgs.confirm_delete}" icon="ui-icon-alert" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="#{msgs.delete}" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="#{msgs.cancel}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
                     </p:toolbarGroup>
                 </p:toolbar>
             </f:facet>

@@ -28,7 +28,7 @@ public interface EmployeeDAO extends ConnectionDAO {
 
     public int editEmployee(Employee employee);
 
-    public int deleteEmployee(int employeeId) throws SQLException;
+    public int deleteEmployee(String employeeId);
 
     public int maxEmployeeId() throws SQLException;
 

@@ -58,6 +58,15 @@ public class EmployeeBean implements Serializable {
         return this.employee;
     }
 
+    public void deleteEmployee() {
+        String employeeId = employee.getId();
+        try {
+            empService.deleteEmployee(employeeId);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public List<Employee> getEmployees() {
         return employees;
     }

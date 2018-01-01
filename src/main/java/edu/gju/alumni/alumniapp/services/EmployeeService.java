@@ -62,4 +62,9 @@ public class EmployeeService {
         return result;
     }
 
+    public int deleteEmployee(String employeeId) throws SQLException {
+        int result = employeeDAO.deleteEmployee(employeeId);
+        return result;
+    }
+
 }

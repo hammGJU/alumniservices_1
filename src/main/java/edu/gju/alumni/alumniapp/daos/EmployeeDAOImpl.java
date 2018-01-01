@@ -160,8 +160,43 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     }
 
     @Override
-    public int deleteEmployee(int employeeId) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int deleteEmployee(String employeeId) {
+        int result = 0;
+        boolean committed = true;
+        PreparedStatement ps;
+        try {
+            ps = connection.prepareStatement(AlumniServEnum.DELETE_EMP_USERS.toString());
+            ps.setString(1, employeeId);
+            result = ps.executeUpdate();
+
+            ps = connection.prepareStatement(AlumniServEnum.DELETE_EMP_EMPLOYEE.toString());
+            ps.setString(1, employeeId);
+            result = ps.executeUpdate();
+
+            ps = connection.prepareStatement(AlumniServEnum.DELETE_EMP_USER_GROUP.toString());
+            ps.setString(1, employeeId);
+            result = ps.executeUpdate();
+
+            connection.setAutoCommit(false);
+            ps.close();
+            connection.commit();
+
+        } catch (SQLException ex) {
+            committed = false;
+            Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+
+        } finally {
+            if (!committed) {
+                try {
+                    connection.rollback();
+                    connection.setAutoCommit(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+        }
+        return result;
     }
 
     @Override
