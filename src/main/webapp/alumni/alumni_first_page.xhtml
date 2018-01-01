@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>#{msgs.welcome_msg}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/general_templates/app_template.xhtml">
+            <h:panelGrid columns="1" style="width: inherit">
+                <p:fieldset legend="#{msgs.profile}" style="margin-bottom:10px" id="main_profile"
+                            toggleable="true">
+                    <p:fieldset legend="#{msgs.profile_info}" id="profile_info"
+                                toggleable="true">
+                        <ui:insert name="Student_Info">
+                            <ui:include src="/app_templates/student_templates/student_info_template.xhtml"/>
+                        </ui:insert>
+
+                    </p:fieldset>
+
+                    <p:fieldset legend="#{msgs.student_job_info}" style="margin-top:10px" id="job_info"
+                                toggleable="true">
+                        <ui:insert name="Student_Info">
+                            <ui:include src="/app_templates/student_templates/student_job_info.xhtml"/>
+                        </ui:insert>
+
+                    </p:fieldset>
+
+                    <p:fieldset legend="#{msgs.file_upload}" style="margin-top:10px" id="file_upload"
+                                toggleable="true">
+                        <ui:insert name="upload_file">
+                            <ui:include src="/app_templates/general_templates/file_upload_template.xhtml"/>
+                        </ui:insert>
+
+                    </p:fieldset>
+
+                    <h:form id="edit_info" style="margin-top: 10px">
+                        <p:commandButton value="#{msgs.edit_info}" styleClass="commandButton"
+                                         icon="ui-icon-edit" iconPos="#"
+                                         ajax="false"
+                                         style="float:#{langBean.styleFloat}"                                                                   
+                                         action="alumni_edit_page?faces-redirect=true"
+                                         />
+                        
+                    </h:form>
+
+                </p:fieldset>
+            </h:panelGrid>
+        </ui:decorate>
+    </h:body>
+</html>

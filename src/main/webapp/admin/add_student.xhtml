@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Add Student</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/general_templates/app_template.xhtml">
+            <h:form id="f_student_dsa">            
+                <p:messages id="msgs" closable="true" globalOnly="true"/>
+
+                <p:panel header="#{msgs.student_info}"                            
+                         style="min-height:400px; 
+                         direction:#{langBean.dir};margin-top:10px; font-size:10pt">
+                    <h:panelGrid id="add"
+                                 style="float: #{langBean.styleFloat};" 
+                                 columns="3"                              
+                                 dir="#{langBean.dir}">
+                        <p:outputLabel value="#{msgs.student_fname_en}:" for="student_fname_en"/>
+                        <p:inputText id="student_fname_en"
+                                     style="width:600px"
+                                     value="#{studentBean.student.firstName}"                                      
+                                     required="true"
+                                     maxlength="512"
+                                     disabled="false"
+                                     requiredMessage="#{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="student_fname_en" styleClass="errorMsg"/>
+
+                        <p:outputLabel value="#{msgs.student_lname_en}:" for="student_lname_en"/>
+                        <p:inputText id="student_lname_en"
+                                     style="width:600px"
+                                     value="#{studentBean.student.lastName}"                                      
+                                     required="false"
+                                     maxlength="512"
+                                     disabled="false"
+                                     requiredMessage="#{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="student_lname_en" styleClass="errorMsg"/>
+
+                        <p:outputLabel value="#{msgs.student_id}:" for="student_id"/>
+                        <p:inputText id="student_id"
+                                     value="#{studentBean.student.id}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     disabled="false"
+                                     requiredMessage=" #{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="student_id" styleClass="errorMsg"/>
+
+                        <p:outputLabel value="#{msgs.student_school}:" for="student_schl"/>
+                        <p:selectOneMenu id="student_schl" value="#{studentBean.school.shcoolName}" 
+                                         rendered="true" requiredMessage="#{msgs.required_msg}">
+                            <p:ajax update="student_dpt" listener="#{studentBean.onCountryChange}"/>
+                            <f:selectItem  itemLabel="#{msgs.select_one}" itemValue=""/>
+                            <f:selectItems var="schl"
+                                           value="#{studentBean.schoolMap}" 
+                                           />
+
+                        </p:selectOneMenu>
+                        <h:message for="student_schl" styleClass="errorMsg"/>
+
+
+
+                        <p:outputLabel value="#{msgs.student_department}:" for="student_dpt"/>
+                        <p:selectOneMenu id="student_dpt" value="#{studentBean.department.departmentName}" 
+                                         rendered="true" requiredMessage="#{msgs.required_msg}">
+
+                            <f:selectItem  itemLabel="#{msgs.select_one}" itemValue=""/>
+                            <f:selectItems var="dep"
+                                           value="#{studentBean.depMap}" 
+                                           />
+
+                        </p:selectOneMenu>
+                        <h:message for="student_dpt" styleClass="errorMsg"/>
+
+                        <p:outputLabel for="dof" value="#{msgs.student_dob}" />
+                        <p:calendar id="dof" value="#{studentBean.student.dateOfBirth}" showOn="button" 
+                                    required="true" requiredMessage="#{msgs.required_msg}"/>
+                        <h:message for="dof" styleClass="errorMsg"/>
+
+                        <p:outputLabel for="degrees" value="#{msgs.student_degree}" />
+                        <p:selectOneMenu id="degrees" value="#{studentBean.degree}" 
+                                         rendered="true" requiredMessage="#{msgs.required_msg}">
+                            <f:selectItem  itemLabel="#{msgs.select_one}"/>
+                            <f:selectItems var="deg"
+                                           value="#{studentBean.fetchAllDegrees()}" 
+                                           itemLabel="#{deg.degreeName}"
+                                           itemValue="#{deg.id}"/>
+
+                        </p:selectOneMenu>
+                        <h:message for="degrees" styleClass="errorMsg"/>
+
+                        <p:outputLabel value="#{msgs.student_gpa}:" for="student_gpa"/>
+                        <p:inputText id="student_gpa"
+                                     value="#{studentBean.student.gpa}"
+                                     style="width:50px"
+                                     required="true"
+                                     maxlength="55"
+                                     disabled="false"
+                                     requiredMessage=" #{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="student_gpa" styleClass="errorMsg"/>
+
+                        <p:outputLabel value="#{msgs.email}:" for="student_email"/>
+                        <p:inputText id="student_email"
+                                     value="#{studentBean.student.email}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     disabled="false"
+                                     requiredMessage=" #{msgs.required_msg}">
+                            <f:validator validatorId="mValidator" />
+                        </p:inputText>
+                        <h:message for="student_email" styleClass="errorMsg"/>
+
+                        <p:outputLabel for="nationality" value="#{msgs.student_nationality}" />
+                        <p:selectOneMenu id="nationality" value="#{studentBean.departments}" 
+                                         rendered="true" requiredMessage="#{msgs.required_msg}">
+                            <f:selectItem  itemLabel="#{msgs.select_one}"/>
+                            <f:selectItems var="deg"
+                                           value="#{studentBean.fetchAllDegrees()}" 
+                                           itemLabel="#{deg.degreeName}"
+                                           itemValue="#{deg.id}"/>
+
+                        </p:selectOneMenu>
+                        <h:message for="nationality" styleClass="errorMsg"/>
+
+
+                        <p:outputLabel value="#{msgs.email_body}:" for="email_msg"/>
+                        <p:inputTextarea id="email_msg"
+                                         rows="10" cols="50" style="width:600px"
+
+                                         required="true"
+                                         requiredMessage=" #{msgs.required_msg}">
+                        </p:inputTextarea>
+                        <h:message for="email_msg" styleClass="errorMsg"/>
+
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:commandButton value="#{msgs.save}"
+                                 styleClass="commandButton"
+                                 icon="ui-icon-send"
+                                 iconPos="#{langBean.styleFloat}"
+                                 ajax="false"
+                                 style="float:#{langBean.styleFloat}"
+                                 immediate="false"
+                                 action="#{studentBean.insertStudent()}" />
+                <p:commandButton value="#{msgs.cancel}"
+                                 icon="ui-icon-cancel"  
+                                 iconPos="#{langBean.styleFloat}"
+                                 styleClass="commandButton"
+                                 immediate="true" 
+                                 style="float:#{langBean.styleFloat}"                                 
+                                 action="manage_events"  />                                   
+            </h:form>
+        </ui:decorate>
+    </h:body>
+</html>

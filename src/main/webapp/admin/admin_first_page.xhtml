@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>#{msgs.welcome_msg}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/general_templates/app_template.xhtml">
+            <!--            <h:form id="admin_form"             
+                                style="direction:#{langBean.dir}; width:100%">           -->
+            <!--                <p:ribbon activeIndex="#{sessionBean.menuIndex}">                        -->
+            <p:tabView style="float:#{langBean.styleFloat};" id="tabs">
+                <p:tab title="#{msgs.employees}">  
+                    <!--                        <p:ribbonGroup styleClass="ribbonGroup"
+                                                           style="float:#{langBean.styleFloat};">-->
+                    <ui:insert name="Employee_tab">
+                        <ui:include src="/app_templates/admin_templates/admin_table_template.xhtml"/>
+                    </ui:insert>
+                    <!--                        </p:ribbonGroup>               -->
+                </p:tab>
+
+                <p:tab title="#{msgs.students}">  
+                    <!--                    <p:ribbonGroup styleClass="ribbonGroup"
+                                                       style="float:#{langBean.styleFloat};">-->
+                    <ui:insert name="student_tab">
+                        <ui:include src="/app_templates/admin_templates/admin_student_table_template.xhtml"/>
+                    </ui:insert>
+                    <!--                    </p:ribbonGroup>               -->
+                </p:tab>
+
+                <p:tab title="#{msgs.personalinfo}">  
+                    <!--                    <p:ribbonGroup styleClass="ribbonGroup"
+                                                       style="float:#{langBean.styleFloat};">-->
+<!--                    <p:commandButton  value="#{msgs.hoffaz}" 
+                                      styleClass="ribbonButton" 
+                                      style="float:#{langBean.styleFloat};"
+                                      actionListener="#{sessionBean.setMenuIndex(2)}"
+                                      action="/hoffaz/hoffaz.xhtml">                         
+                    </p:commandButton>-->
+                    <!--                    </p:ribbonGroup>               -->
+                </p:tab>
+                <!--</p:ribbon>-->
+            </p:tabView>
+            <!--            </h:form>-->
+        </ui:decorate>
+    </h:body>
+</html>

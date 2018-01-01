@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <!--    <h:form id="ribbon_menu"             
+                style="direction:#{langBean.dir}; width:100%">-->
+    <!--    <p:panel id="basic" header="DSA" style="margin-bottom:10px;">-->
+
+    <h:form id="table_emp_form" style="direction: #{langBean.dir}">
+        <p:dataTable id="table_employees" var="emp"  value="#{employeeBean.empService.allEmployees}" 
+                     rowKey="#{emp.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{employeeBean.employee}"
+                     emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+            <p:ajax event="rowSelectRadio" update=":tabs:table_emp_form:table_employees"/>
+
+            <f:facet name="header" id="header">
+                #{msgs.employeeInfo}
+            </f:facet>
+
+            <p:column selectionMode="single" style="width: 10%"/>
+            <p:column headerText="#{msgs.employee_fname_en}" style="width: 100%"
+                      filterBy="#{emp.firstName}" filterMatchMode="contains"
+                      sortBy="#{emp.id}">
+                <h:outputText value="#{emp.firstName}" />
+
+            </p:column>    
+
+            <p:column headerText="#{msgs.employee_lname_en}" style="width: 100%"
+                      filterBy="#{emp.lastName}" filterMatchMode="contains"
+                      sortBy="#{emp.id}">
+                <h:outputText value="#{emp.lastName}" />
+
+            </p:column>
+
+            <p:column headerText="#{msgs.employee_department}" style="width: 100%"
+                      filterBy="#{emp.department.groupdId}" filterMatchMode="contains"
+                      sortBy="#{emp.id}">
+                <h:outputText value="#{emp.department.groupdId}" />
+
+            </p:column>
+            <f:facet name="footer">
+                <p:toolbar style="border: none">
+                    <p:toolbarGroup>
+                        <p:commandButton value="#{msgs.add}" styleClass="commandButton"
+                                         style="float: left"
+                                         icon="ui-icon-edit" iconPos="1"
+                                         ajax="false"                                                                  
+                                         action="/admin/add_employee" />
+                        <p:commandButton value="#{msgs.edit}" styleClass="commandButton"
+                                         style="float: left"
+                                         icon="ui-icon-edit" iconPos="1"
+                                         disabled="#{employeeBean.employee==null}"
+                                         ajax="false"                                                                  
+                                         action="/admin/edit_employee" />
+                        <p:commandButton value="#{msgs.delete}"
+                                         icon="ui-icon-delete"
+                                         disabled="#{employeeBean.employee==null}"
+                                         iconPos="#{langBean.styleFloat}"
+                                         styleClass="commandButton"
+                                         immediate="true" 
+                                         style="float:#{langBean.styleFloat}"                                 
+                                         action="admin_first_page"  />
+                    </p:toolbarGroup>
+                </p:toolbar>
+            </f:facet>
+
+        </p:dataTable>
+    </h:form>
+    <!--</p:panel>-->
+</ui:composition>

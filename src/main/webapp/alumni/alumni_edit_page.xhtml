@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>#{msgs.welcome_msg}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/general_templates/app_template.xhtml">
+
+            <div>
+                <h:form id="student_edit_info" style="width: inherit">
+                    <p:panel header="#{msgs.edit_info}">
+
+                        <h:panelGrid id="grid" columns="3"   style="width: inherit;">
+                            <p:outputLabel value="#{msgs.student_id}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.id}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_fname_en}" for="studentFirstName"/>
+                            <p:inputText id="studentFirstName" value="#{studentBean.selectedStudent.firstName}" required="true">
+                                <f:validateLength minimum="1" />
+                            </p:inputText>
+                            <p:message for="studentFirstName" display="icon"/>
+
+                            <p:outputLabel value="#{msgs.student_lname_en}" for="studentLastName"/>
+                            <p:inputText id="studentLastName" value="#{studentBean.selectedStudent.lastName}" required="true" >
+                                <f:validateLength minimum="1" />
+                            </p:inputText>
+                            <p:message for="studentLastName" display="icon" />
+
+                            <p:outputLabel value="#{msgs.student_dob}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.dateOfBirth}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_nationality}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.nationality}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_school}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.school}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_department}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.department}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_degree}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.degree}"/>
+                            <p:outputLabel value=""/>
+                            
+                            <p:outputLabel value="#{msgs.student_gpa}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.gpa}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_graduation_year}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.gradYear}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_graduation_semester}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.gradSemester}"/>
+                            <p:outputLabel value=""/>
+                            
+                            <p:outputLabel value="#{msgs.student_gender}"/>
+                            <p:outputLabel value="#{studentBean.selectedStudent.gender}"/>
+                            <p:outputLabel value=""/>
+
+                            <p:outputLabel value="#{msgs.student_job_status}" for="student_job_status_chckbx"/>
+                            <h:panelGrid id="student_job_status_chckbx_panelGrid">
+                                <!-- value in check box must be array or collection-->
+                                <p:selectManyCheckbox id="student_job_status_chckbx"  >
+                                    <f:validateRequired for="student_job_status_chckbx"/>
+                                    <f:selectItem itemLabel="Seeking for Job" itemValue="Seeking for Job" />
+                                    <f:selectItem itemLabel="Working" itemValue="Working" />
+                                    <f:selectItem itemLabel="Studying" itemValue="Studying" />
+                                </p:selectManyCheckbox>
+                            </h:panelGrid>
+                            <p:message for="student_job_status_chckbx" display="icon" />
+
+                            <p:outputLabel value="#{msgs.student_job_info}"/>
+                            <h:panelGrid id="student_job_info"  columns="3" >
+
+                                <p:outputLabel value="#{msgs.student_job_company_name}" for="student_job_company_name"/>
+                                <p:inputText id="student_job_company_name" value="#{studentBean.selectedStudent.studentJob.companyName}" required="true">
+                                    <f:validateLength minimum="1" />
+                                </p:inputText>
+                                <p:message for="student_job_company_name" display="icon"/>
+
+
+                                <p:outputLabel value="#{msgs.student_job_company_position}" for="student_job_company_position"/>
+                                <p:inputText id="student_job_company_position" value="#{studentBean.selectedStudent.studentJob.studentPosition}" required="true">
+                                    <f:validateLength minimum="1" />
+                                </p:inputText>
+                                <p:message for="student_job_company_position" display="icon"/>
+
+                                <p:outputLabel value="#{msgs.student_job_company_country}" for="student_job_company_country"/>
+                                <p:inputText id="student_job_company_country" value="#{studentBean.selectedStudent.studentJob.conntry}" required="true">
+                                    <f:validateLength minimum="1" />
+                                </p:inputText>
+                                <p:message for="student_job_company_country" display="icon"/>
+                                
+                                <p:outputLabel value="#{msgs.student_job_company_city}" for="student_job_company_city"/>
+                                <p:inputText id="student_job_company_city" value="#{studentBean.selectedStudent.studentJob.city}" required="true">
+                                    <f:validateLength minimum="1" />
+                                </p:inputText>
+                                <p:message for="student_job_company_city" display="icon"/>
+                                
+                                <!--make calendar for job start date -->
+                                <!--Insert Code Here-->
+                                
+                            </h:panelGrid>
+                            <p:outputLabel value=""/>
+
+                            
+                            <p:outputLabel value="#{msgs.student_exp}" for="yearsExperience"/>
+                            <p:inputText id="yearsExperience" value="#{studentBean.selectedStudent.yearsExperience}" required="true">
+                                <f:validateLength minimum="1" />
+                                <f:validateDoubleRange minimum="0.0"/>
+                            </p:inputText>
+                            <p:message for="yearsExperience" display="icon" />
+
+                            <p:outputLabel value="#{msgs.student_facebook_link}" for="facebookLink"/>
+                            <p:inputText id="facebookLink" value="#{studentBean.selectedStudent.facebookLink}" required="true">
+                                <f:validateRegex pattern="https:\/\/www.facebook.com\/"/>
+                            </p:inputText>
+                            <p:message for="facebookLink" display="hello" />
+
+                            <p:outputLabel value="#{msgs.student_linkedIn_link}" for="linkedInLink"/>
+                            <p:inputText id="linkedInLink" value="#{studentBean.selectedStudent.facebookLink}" required="true">
+                                <f:validateRegex pattern="linkedIn link"/>
+                            </p:inputText>
+                            <p:message for="linkedInLink" display="hello" />
+
+                            
+                        </h:panelGrid>
+
+
+                        <!--<p:commandButton value="Non-Ajax" ajax="false" icon="ui-icon-check" validateClient="true" style="margin-right:10px"/>-->
+                    </p:panel>
+                </h:form>
+            </div>
+        </ui:decorate>
+    </h:body>
+</html>
+

@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <!--    <h:form id="ribbon_menu"             
+                style="direction:#{langBean.dir}; width:100%">-->
+    <p:panel id="basic" header="DSA" style="margin-bottom:10px;">
+
+        <p:tabView id="tabs">
+            <p:tab title="#{msgs.dsa_jobs}">
+
+                <h:form id="table_jobs_form" style="direction: #{langBean.dir}">
+                    <p:dataTable id="table_jobs" var="emp"  value="#{addEmployee.employee}" 
+                                 rowKey="#{emp.Id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{emp.name}"
+                                 emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+                        <f:facet name="header" id="header">
+                            #{msgs.dsa_jobs}
+                        </f:facet>
+
+                        <p:column selectionMode="single" style="width: 5%"/>
+                        <p:column headerText="#{msgs.name}" style="width: 100%"
+                                  filterBy="#{emp.nameEn}" filterMatchMode="contains"
+                                  sortBy="#{emp.nameEn}">
+                            <h:outputText value="#{emp.nameEn}" />
+
+                        </p:column>    
+
+                        <p:column headerText="#{msgs.school}" style="width: 100%"
+                                  filterBy="#{emp.school}" filterMatchMode="contains"
+                                  sortBy="#{emp.school}">
+                            <h:outputText value="#{emp.school}" />
+
+                        </p:column>
+                        <p:column headerText="#{msgs.department}" style="width: 100%"
+                                  filterBy="#{emp.department}" filterMatchMode="contains"
+                                  sortBy="#{emp.department}">
+                            <h:outputText value="#{emp.department}" />
+
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup>
+                                    <p:commandButton value="#{msgs.employee_search}" styleClass="commandButton"
+                                                     style="float: left"
+                                                     icon="ui-icon-edit" iconPos="1"
+                                                     ajax="false"                                                                  
+                                                     action="#{emp.viewJob}" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+
+                    </p:dataTable>
+                </h:form>
+            </p:tab>
+
+            <p:tab title="#{msgs.dsa_students}" >
+                <h:form id="table_students_form" style="direction:#{langBean.dir}; width:100%">
+                    <p:dataTable id="table_students" var="student"  value="#{studentBean.studentList}" 
+                                 rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
+                                 emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 >
+                        <p:ajax event="rowSelectRadio" update=":tabs:table_students_form:table_students"/>
+                        <f:facet name="header" id="header">
+                            #{msgs.dsa_students}
+                        </f:facet>
+                        <p:column selectionMode="single" style="width:30%" />
+
+                        <p:column headerText="#{msgs.student_id}" styleClass="tableColumn"
+                                  filterBy="#{student.id}" filterMatchMode="contains"
+                                  sortBy="#{student.firstName}">
+                            <h:outputText value="#{student.id}" />
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.first_Name}" styleClass="tableColumn"
+                                  filterBy="#{student.firstName}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.firstName}" />
+
+                        </p:column>
+                        <p:column headerText="#{msgs.last_Name}" styleClass="tableColumn"
+                                  filterBy="#{student.lastName}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.lastName}" />
+
+                        </p:column>
+
+                        <p:column  headerText="#{msgs.school}" styleClass="tableColumn"
+                                   filterBy="#{student.school}" filterMatchMode="contains"
+                                   sortBy="#{student.id}">
+                            <h:outputText value="#{student.school}" />
+
+
+                        </p:column>
+
+<!--                        <p:column headerText="#{msgs.department}" styleClass="tableColumn"
+                                  filterBy="#{student.department}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.department}" />
+
+                        </p:column>-->
+
+                        <p:column headerText="#{msgs.student_nationality}" styleClass="tableColumn"
+                                  filterBy="#{student.nationality}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.nationality}" />
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.student_degree}" styleClass="tableColumn"
+                                  filterBy="#{student.degree}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.degree}" />
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.student_exp}" styleClass="tableColumn"
+                                  filterBy="#{student.yearsExperience}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.yearsExperience}" />
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.student_gpa}" styleClass="tableColumn"
+                                  filterBy="#{student.gpa}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.gpa}" />
+
+                        </p:column>
+
+                        <p:column headerText="#{msgs.student_job_status}" styleClass="tableColumn"
+                                  filterBy="#{student.statusId}" filterMatchMode="contains"
+                                  sortBy="#{student.id}">
+                            <h:outputText value="#{student.statusId}" />
+
+                        </p:column>
+
+                        <p:column style="width: 40%">
+                            <!--<p:commandLink value="#{msgs.sendLabel}"  action="/registrar/registrar_first_page.xhtml?faces-redirect=true"/>-->
+                            <p:link value="Send" href="/registrar/registrar_first_page.xhtml"/>
+                        </p:column>
+
+                        <f:facet name="footer">
+                            <p:toolbar style="border: none">
+                                <p:toolbarGroup>
+                                    <p:commandButton value="#{msgs.view}" styleClass="commandButton"
+                                                     style="float: left" 
+                                                     disabled="#{studentBean.selectedStudent==null}"
+                                                     icon="ui-icon-edit" iconPos="1"
+                                                     ajax="false"                                                                  
+                                                     action="/dsa/view_student" />
+                                </p:toolbarGroup>
+                            </p:toolbar>
+                        </f:facet>
+                    </p:dataTable>
+
+                </h:form>
+            </p:tab>
+            <p:tab title="#{msgs.dsa_stats}">
+                <p>
+                    <p:chart type="bar" model="#{chartView.barModel}" style="height:300px"/>
+                </p>
+            </p:tab>
+        </p:tabView>
+
+    </p:panel>
+</ui:composition>

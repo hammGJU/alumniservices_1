@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">  
+    <h:form id="table_form_template" style="direction:#{langBean.dir}; width:80%">
+        <p:dataTable id="table_template" var="emp"  value="#{addEmployee.employee}" 
+                     rowKey="#{emp.Id}" rows="5" rowsPerPageTemplate="5, 10, 15" selection="#{emp.name}"
+                     emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     >
+            <!--<p:ajax event="rowSelectRadio" update=":table_form_template:table_template" />  fix this!!!! -->
+            <f:facet name="header" id="header">
+                #{msgs.welcome_msg}
+            </f:facet>
+            <p:column selectionMode="single" style="width:5%" />
+            <p:column headerText="#{msgs.name}" style="width: 15%"
+                      filterBy="#{emp.nameEn}" filterMatchMode="contains"
+                      sortBy="#{emp.nameEn}">
+                <h:outputText value="#{emp.nameEn}" />
+
+            </p:column>
+            <p:column headerText="#{msgs.school}" style="width: 20%"
+                      filterBy="#{emp.school}" filterMatchMode="contains"
+                      sortBy="#{emp.school}">
+                <h:outputText value="#{emp.school}" />
+
+            </p:column>
+            <p:column headerText="#{msgs.department}" style="width: 20%"
+                      filterBy="#{emp.department}" filterMatchMode="contains"
+                      sortBy="#{emp.department}">
+                <h:outputText value="#{emp.department}" />
+
+            </p:column>
+
+        </p:dataTable>
+
+    </h:form>
+</ui:composition>
