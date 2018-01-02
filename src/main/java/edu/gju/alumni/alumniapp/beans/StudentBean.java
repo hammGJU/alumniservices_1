@@ -36,6 +36,7 @@ public class StudentBean implements Serializable {
 
     private List<Student> studentList;
     private Student selectedStudent;
+    private List<Student> listOfStudents;
     private Student student;
     private Degree degree;
     private School school;
@@ -227,7 +228,6 @@ public class StudentBean implements Serializable {
         this.data = data;
     }
 
-
     public List<School> getSchools() {
         return schools;
     }
@@ -260,5 +260,14 @@ public class StudentBean implements Serializable {
         this.depMap = depMap;
     }
 
+    public List<Student> getListOfStudents() {
+        return listOfStudents;
+    }
+
+    public void setListOfStudents(List<Student> listOfStudents) {
+        this.listOfStudents = listOfStudents;
+    }
+
     
+
 }

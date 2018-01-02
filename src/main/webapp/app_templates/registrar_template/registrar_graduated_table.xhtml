@@ -11,7 +11,7 @@
             <p:tab title="#{msgs.expected_graduate}" id="grads" >
                 <h:form id="form_grads" >
                     <p:dataTable id="graduatedStudentsTable" style="margin-bottom:0" var="student"
-                                 value="#{studentBean.studentList}" rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
+                                 value="#{studentBean.studentList}" rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.listOfStudents}"
                                  emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  >
@@ -47,7 +47,7 @@
                             <p:toolbar style="border: none">
                                 <p:toolbarGroup>
                                     <p:commandButton style="float: left" value="#{msgs.view}" icon="ui-icon-search" 
-                                                     disabled="#{studentBean.selectedStudent==null}"
+                                                     disabled="#{studentBean.listOfStudents==null}"
                                                      actionListener="#{studentBean.saveSelectedItemId()}"
                                                      onclick="PF('gradDlg').show();"/>
 <!--                                    <p:commandButton style="float: left" value="#{msgs.cancel}" 
