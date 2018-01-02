@@ -7,6 +7,7 @@ package edu.gju.alumni.alumniapp.services;
 
 import edu.gju.alumni.alumniapp.daos.EmployeeDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.empDAO;
+import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Employee;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class EmployeeService {
         employees = employeeDAO.getAllEmployees();
         return employees;
     }
+    
 
     public Employee getEmployeeById(int id) throws SQLException {
         Employee employee = new Employee();

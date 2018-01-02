@@ -69,16 +69,27 @@ and open the template in the editor.
                         </p:inputText>
                         <h:message for="student_dpt" styleClass="errorMsg"/>
 
-                        <p:outputLabel value="#{msgs.email}:" for="student_email"/>
-                        <p:inputText id="student_email"
-                                     value="#{viewStudent.student.emails}"
+                        <p:outputLabel value="#{msgs.email} 1:" for="student_email1"/>
+                        <p:inputText id="student_email1"
+                                     value="#{viewStudent.student.email1}"
                                      style="width:600px"
                                      required="true"
                                      maxlength="512"
                                      disabled="true"
                                      requiredMessage=" #{msgs.required_msg}">
                         </p:inputText>
-                        <h:message for="student_email" styleClass="errorMsg"/>
+                        <h:message for="student_email1" styleClass="errorMsg"/>
+                        
+                        <p:outputLabel value="#{msgs.email} 2:" for="student_email2"/>
+                        <p:inputText id="student_email2"
+                                     value="#{viewStudent.student.email2}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     disabled="true"
+                                     requiredMessage=" #{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="student_email2" styleClass="errorMsg"/>
 
                         <p:outputLabel value="#{msgs.email_body}:" for="email_msg"/>
                         <p:inputTextarea id="email_msg"

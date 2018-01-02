@@ -10,8 +10,8 @@
         <div >
             <p:tab title="#{msgs.expected_graduate}" id="grads" >
                 <h:form id="form_grads" >
-                    <p:dataTable id="graduatedStudentsTable" style="margin-bottom:0" var="student"
-                                 value="#{studentBean.studentList}" rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.listOfStudents}"
+                    <p:dataTable id="graduatedStudentsTable" style="margin-bottom:0" var="students"
+                                 value="#{studentBean.studentList}" rowKey="#{students.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.listOfStudents}"
                                  emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  >
@@ -23,48 +23,32 @@
                             </p:outputPanel>
                         </f:facet>
                         <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
-                        <p:column  id="sid" headerText="#{msgs.student_id}" filterBy="#{student.id}" filterMatchMode="contains"
-                                   sortBy="#{student.id}">
-                            <h:outputText value="#{student.id}" />
+                        <p:column  id="sid" headerText="#{msgs.student_id}" filterBy="#{students.id}" filterMatchMode="contains"
+                                   sortBy="#{students.id}">
+                            <h:outputText value="#{students.id}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_fname_en}" filterBy="#{student.firstName}" filterMatchMode="contains"
-                                  sortBy="#{student.id}">
-                            <h:outputText value="#{student.firstName}" />
+                        <p:column headerText="#{msgs.student_fname_en}" filterBy="#{students.firstName}" filterMatchMode="contains"
+                                  sortBy="#{students.firstName}">
+                            <h:outputText value="#{students.firstName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_lname_en}" filterBy="#{student.lastName}" filterMatchMode="contains"
-                                  sortBy="#{student.id}">
-                            <h:outputText value="#{student.lastName}" />
+                        <p:column headerText="#{msgs.student_lname_en}" filterBy="#{students.lastName}" filterMatchMode="contains"
+                                  sortBy="#{students.lastName}">
+                            <h:outputText value="#{students.lastName}" />
                         </p:column>
-                        <p:column headerText="#{msgs.student_department}" filterBy="#{student.department.departmentName}" filterMatchMode="contains"
-                                  sortBy="#{student.id}">
-                            <h:outputText value="#{student.department.departmentName}" />
-                        </p:column>
-                        <p:column headerText="#{msgs.student_school}" filterBy="#{student.school.shcoolName}" filterMatchMode="contains"
-                                  sortBy="#{student.id}">
-                            <h:outputText value="#{student.school.shcoolName}" />
-                        </p:column>
-                        <f:facet name="footer" class="ui-datatable-footer">
+
+                        <f:facet name="footer">
                             <p:toolbar style="border: none">
                                 <p:toolbarGroup>
-                                    <p:commandButton style="float: left" value="#{msgs.view}" icon="ui-icon-search" 
+                                    <p:commandButton value="#{msgs.view}" styleClass="commandButton"
+                                                     style="float: left" 
                                                      disabled="#{studentBean.listOfStudents==null}"
-                                                     actionListener="#{studentBean.saveSelectedItemId()}"
-                                                     onclick="PF('gradDlg').show();"/>
-<!--                                    <p:commandButton style="float: left" value="#{msgs.cancel}" 
-                                                     icon="ui-icon-minus" onclick="PF('multiStudentDialog').show();"/>-->
+                                                     icon="ui-icon-edit" iconPos="1"
+                                                     ajax="true"                                                                  
+                                                     action="/registrar/send_emails" />
                                 </p:toolbarGroup>
                             </p:toolbar>
                         </f:facet>
                     </p:dataTable>
-                    <p:dialog id="dialog" header="Selected Students" widgetVar="gradDlg" dynamic="true" 
-                              modal="true" showEffect="fade" hideEffect="fade" resizable="true" width="220">
-                        <p:outputPanel id="panel" style="text-align:center;">
-                            <ui:repeat value="#{studentBean.selectedStudent}" var="student">
-                                <h:outputText value="#{msgs.student_id}: #{student.id}" style="display:block"/>
-                                <h:outputText value="#{msgs.student_name}: #{student.firstName}" style="display:block"/>
-                            </ui:repeat>
-                        </p:outputPanel>
-                    </p:dialog>
                 </h:form>
             </p:tab>
         </div>

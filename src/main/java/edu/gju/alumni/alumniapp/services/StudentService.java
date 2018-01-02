@@ -7,6 +7,7 @@ package edu.gju.alumni.alumniapp.services;
 
 import edu.gju.alumni.alumniapp.daos.annotations.StdDAO;
 import edu.gju.alumni.alumniapp.daos.StudentDAO;
+import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Student;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -32,6 +33,10 @@ public class StudentService {
         List<Student> students = new ArrayList<>();
         students = studentDAO.getAllStudents();
         return students;
+    }
+
+    public List<Email> getStudentEmails(String studentId) throws SQLException {
+        return studentDAO.getStudentEmail(studentId);
     }
 
     public Student getStudentById(int id) throws SQLException {

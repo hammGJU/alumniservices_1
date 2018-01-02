@@ -77,7 +77,7 @@ public class PopulateModels {
 
         while (rs.next()) {
             email.setId(rs.getString(AlumniServEnum.STUDENT_ID.toString()));
-            email.setEmail(AlumniServEnum.STUDENT_EMAIL.toString());
+            email.setEmail(rs.getString(AlumniServEnum.STUDENT_EMAIL.toString()));
             emails.add(email);
 
         }

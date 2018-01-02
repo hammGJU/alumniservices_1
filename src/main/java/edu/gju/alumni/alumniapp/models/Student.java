@@ -30,7 +30,8 @@ public class Student implements Serializable {
     private double yearsExperience;
     private String facebookLink;
     private String linkedInLink;
-    private List<Email> emails;
+    private String email1;
+    private String email2;
     private GraduationYear gradYear;
     private GraduationSemester gradSemester;
     private StudentJob studentJob;
@@ -147,15 +148,21 @@ public class Student implements Serializable {
         this.linkedInLink = linkedInLink;
     }
 
-    public List<Email> getEmails() {
-        return emails;
+    public String getEmail1() {
+        return email1;
     }
 
-    public void setEmails(List<Email> emails) {
-        this.emails = emails;
+    public void setEmail1(String email1) {
+        this.email1 = email1;
     }
 
-    
+    public String getEmail2() {
+        return email2;
+    }
+
+    public void setEmail2(String email2) {
+        this.email2 = email2;
+    }
 
     public GraduationYear getGradYear() {
         return gradYear;
@@ -216,7 +223,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return "Student{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", school=" + school + ", department=" + department + '}';
+        return "Student{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", nationality=" + nationality + ", gpa=" + gpa + ", email1=" + email1 + ", email2=" + email2 + '}';
     }
 
 }
