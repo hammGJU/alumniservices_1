@@ -25,7 +25,7 @@ and open the template in the editor.
                                  style="float: #{langBean.styleFloat};" 
                                  columns="3"                              
                                  dir="#{langBean.dir}">
-                        
+
                         <p:outputLabel value="#{msgs.selected_students_emails}" for="students_emails"/>
                         <p:dataList id="students_emails" value="#{viewStudent.listOfStudents}"
                                     var="students" 
@@ -35,10 +35,19 @@ and open the template in the editor.
                         </p:dataList>
                         <h:message for="students_emails" styleClass="errorMsg"/>
 
+                        <p:outputLabel value="#{msgs.email_subject}" for="email_subject"/>
+                        <p:inputText id="email_subject"
+                                     style="width:600px"
+                                     value="#{viewStudent.subject}"
+                                     required="true"
+                                     requiredMessage=" #{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="email_subject" styleClass="errorMsg"/>
+
                         <p:outputLabel value="#{msgs.email_body}:" for="email_msg"/>
                         <p:inputTextarea id="email_msg"
                                          rows="10" cols="50" style="width:600px"
-
+                                         value="#{viewStudent.message}"
                                          required="true"
                                          requiredMessage=" #{msgs.required_msg}">
                         </p:inputTextarea>

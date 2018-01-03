@@ -8,8 +8,10 @@ package edu.gju.alumni.alumniapp.beans;
 import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Student;
 import edu.gju.alumni.alumniapp.services.StudentService;
+import edu.gju.alumni.alumniapp.utils.SendEmail;
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,7 @@ import javax.faces.view.ViewScoped;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -35,6 +38,12 @@ public class ContactStudentBean implements Serializable {
     private StudentService studentService;
     @Inject
     private StudentBean studentBean;
+
+    private final String emailUserName = "ce743project.hamm@gmail.com";
+    private final String emailPassowrd = "ham@ce743";
+    private String toEmail;
+    private String message;
+    private String subject;
 
     public ContactStudentBean() {
     }
@@ -99,6 +108,30 @@ public class ContactStudentBean implements Serializable {
     }
 
     public void sendEmail() {
+        List<String> toEmails = new ArrayList<>();
+        SendEmail sendEmail = new SendEmail();
+        for (Student s : listOfStudents) {
+            String email1 = s.getEmail1();
+            String email2 = s.getEmail2();
+            if (email1 != null && email2 == null) {
+                toEmails.add(email1);
+            }
+            if (email1 == null && email2 != null) {
+                toEmails.add(email2);
+            }
+            if (email1 != null && email2 != null) {
+                toEmails.add(email2);
+                toEmails.add(email1);
+            }
+        }
+        try {
+            for (int i = 0; i < toEmails.size(); i++) {
+
+                sendEmail.sendEmail(emailUserName, emailPassowrd, emailUserName, toEmails.get(i), subject, message);
+            }
+        } catch (MessagingException ex) {
+            Logger.getLogger(ContactStudentBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -108,6 +141,30 @@ public class ContactStudentBean implements Serializable {
 
     public void setEmails(List<Email> emails) {
         this.emails = emails;
+    }
+
+    public String getToEmail() {
+        return toEmail;
+    }
+
+    public void setToEmail(String toEmail) {
+        this.toEmail = toEmail;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
     }
 
 }
