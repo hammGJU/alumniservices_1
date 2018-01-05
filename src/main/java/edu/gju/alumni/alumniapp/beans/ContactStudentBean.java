@@ -39,8 +39,8 @@ public class ContactStudentBean implements Serializable {
     @Inject
     private StudentBean studentBean;
 
-    private final String emailUserName = "ce743project.hamm@gmail.com";
-    private final String emailPassowrd = "ham@ce743";
+    private final String emailUserName = "bata@my.localdomain";
+    private final String emailPassowrd = "root";
     private String toEmail;
     private String message;
     private String subject;
@@ -64,10 +64,10 @@ public class ContactStudentBean implements Serializable {
                     student.setEmail2(emails.get(1).getEmail());
                 } else if (size == 1) {
                     student.setEmail1(emails.get(0).getEmail());
-                    student.setEmail2("NOT");
+                    student.setEmail2(null);
                 } else {
-                    student.setEmail1("NOT");
-                    student.setEmail2("NOt");
+                    student.setEmail1(null);
+                    student.setEmail2(null);
                 }
             } else {
                 for (Student s : listOfStudents) {
@@ -78,10 +78,10 @@ public class ContactStudentBean implements Serializable {
                         s.setEmail2(emails.get(1).getEmail());
                     } else if (size == 1) {
                         s.setEmail1(emails.get(0).getEmail());
-                        s.setEmail2("NOT");
+                        s.setEmail2(null);
                     } else {
-                        s.setEmail1("NOT");
-                        s.setEmail2("NOt");
+                        s.setEmail1(null);
+                        s.setEmail2(null);
                     }
                 }
             }
@@ -108,27 +108,24 @@ public class ContactStudentBean implements Serializable {
     }
 
     public void sendEmail() {
-        List<String> toEmails = new ArrayList<>();
+        List<String> emailsToRecieve = new ArrayList<>();
         SendEmail sendEmail = new SendEmail();
         for (Student s : listOfStudents) {
-            String email1 = s.getEmail1();
-            String email2 = s.getEmail2();
-            if (email1 != null && email2 == null) {
-                toEmails.add(email1);
+            String e1 = s.getEmail1();
+            String e2 = s.getEmail2();
+            if (e1 == null && e2 == null) {
+                e1 = "ce743project.hamm@gmail.com";
+                e2 = "ce743project.hamm@gmail.com";
+            } else if (e2 == null) {
+                e2 = "ce743project.hamm@gmail.com";
             }
-            if (email1 == null && email2 != null) {
-                toEmails.add(email2);
-            }
-            if (email1 != null && email2 != null) {
-                toEmails.add(email2);
-                toEmails.add(email1);
-            }
+            emailsToRecieve.add(e1);
+            emailsToRecieve.add(e2);
+
         }
         try {
-            for (int i = 0; i < toEmails.size(); i++) {
-
-                sendEmail.sendEmail(emailUserName, emailPassowrd, emailUserName, toEmails.get(i), subject, message);
-            }
+            sendEmail.sendEmail("bata@my.localdomain", emailPassowrd, emailUserName, emailsToRecieve,
+                    subject, message);
         } catch (MessagingException ex) {
             Logger.getLogger(ContactStudentBean.class.getName()).log(Level.SEVERE, null, ex);
         }
