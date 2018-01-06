@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.daosImpl;
 
+import edu.gju.alumni.alumniapp.Idaos.StudentDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.StdDAO;
 import edu.gju.alumni.alumniapp.beans.UserSessionBean;
 import edu.gju.alumni.alumniapp.models.Email;
@@ -73,7 +74,7 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
     @Override
     public List<Student> getAllStudents() throws SQLException {
         List<Student> allStudents = new ArrayList<>();
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_STUDENTS.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_STUDENTS_DSA_NOT_CLEARED.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Student s = PopulateModels.populateStudent(rs);
@@ -129,31 +130,6 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
         ps.setString(13, student.getLinkedInLink());
         ps.setString(14, student.getGradYear().getId());
         ps.setString(15, student.getGradSemester().getId());
-
-        int result = ps.executeUpdate();
-        ps.close();
-        return result;
-    }
-
-    @Override
-    public int editStudent(Student student) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.EDIT_STUDENT.toString());
-        ps.setString(1, student.getFirstName());
-        ps.setString(2, student.getLastName());
-        ps.setDate(3, (Date) student.getDateOfBirth());
-        ps.setString(4, student.getNationality());
-        ps.setString(5, student.getSchool().getId());
-        ps.setString(6, student.getDepartment().getId());
-        ps.setInt(7, student.getDegree().getId());
-        ps.setDouble(8, student.getGpa());
-        ps.setString(9, student.getGender().getId());
-        ps.setString(10, student.getStatus().getId());
-        ps.setDouble(11, student.getYearsExperience());
-        ps.setString(12, student.getFacebookLink());
-        ps.setString(13, student.getLinkedInLink());
-        ps.setString(14, student.getGradYear().getId());
-        ps.setString(15, student.getGradSemester().getId());
-        ps.setString(16, student.getId());
 
         int result = ps.executeUpdate();
         ps.close();

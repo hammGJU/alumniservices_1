@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.daosImpl;
 
+import edu.gju.alumni.alumniapp.Idaos.ConnectionDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.ConnDAO;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -33,7 +34,7 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
     }
 
     @Override
-    @Produces
+//    @Produces
     public Connection getConnection() throws Exception {
         if (this.connection == null || this.connection.isClosed()) {
             this.connection = this.dataSource.getConnection();

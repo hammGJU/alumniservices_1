@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.gju.alumni.alumniapp.daos;
+package edu.gju.alumni.alumniapp.daosImpl;
 
+import edu.gju.alumni.alumniapp.Idaos.DegreeDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.DegDAO;
 import edu.gju.alumni.alumniapp.models.Degree;
 import edu.gju.alumni.alumniapp.utils.AlumniServEnum;

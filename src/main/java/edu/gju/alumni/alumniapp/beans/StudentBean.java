@@ -268,6 +268,4 @@ public class StudentBean implements Serializable {
         this.listOfStudents = listOfStudents;
     }
 
-    
-
 }

@@ -6,7 +6,7 @@
 package edu.gju.alumni.alumniapp.services;
 
 import edu.gju.alumni.alumniapp.daos.annotations.ConnDAO;
-import edu.gju.alumni.alumniapp.daos.ConnectionDAO;
+import edu.gju.alumni.alumniapp.Idaos.ConnectionDAO;
 import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
