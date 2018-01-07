@@ -6,10 +6,13 @@
 package edu.gju.alumni.alumniapp.beans;
 
 import edu.gju.alumni.alumniapp.services.ConnectionService;
+import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.NavigationHandler;
 import javax.faces.bean.ManagedBean;
@@ -36,42 +39,44 @@ public class UserSessionBean implements Serializable {
     public UserSessionBean() {
     }
 
-    public void login() throws Exception {
+    public void login() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         NavigationHandler navHandler = facesContext.getApplication().getNavigationHandler();
         boolean success = false;
-        this.connection = connService.getConnection();
-        Statement st = connection.createStatement();
-        ResultSet rs = st.executeQuery("select * from employee");
-        String user;
-        String password;
-        while (rs.next()) {
-            user = rs.getString("EMPLOYEE_FIRST_NAME");
-            password = rs.getString("EMPLOYEE_LAST_NAME");
-            if (this.userName.equals(user) && this.userPassword.equals(password)) {
-                success = true;
-                break;
-            } else {
-                success = false;
-            }
+        String uGroup = null;
+        try {
+            uGroup = connService.login(this.userName, this.userPassword);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (uGroup != null) {
+            success = true;
+        }
+
         if (success) {
             if (facesContext != null) {
-
-                navHandler.handleNavigation(facesContext, null, "/registrar/registrar_first_page?faces-redirect=true");
+                if (uGroup.equals(AlumniServEnum.ADMIN.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/admin/admin_first_page?faces-redirect=true");
+                } else if (uGroup.equals(AlumniServEnum.ALUMNI.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/alumni/alumni_first_page?faces-redirect=true");
+                } else if (uGroup.equals(AlumniServEnum.REGISTRAR.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/registrar/registrar_first_page?faces-redirect=true");
+                } else if (uGroup.equals(AlumniServEnum.DSA.toString())) {
+                    navHandler.handleNavigation(facesContext, null, "/dsa/dsa_employee_first_page?faces-redirect=true");
+                } else {
+                    navHandler.handleNavigation(facesContext, null, "/accountant/accountant_first_page?faces-redirect=true");
+                }
             }
         }
 
     }
 
-    public void logout() throws Exception {
-        if (connection != null) {
-            if (!connection.getAutoCommit()) {
-                connection.rollback();
-                connection.setAutoCommit(true);
-            }
-            connection.close();
-            connection = null;
+    @PreDestroy
+    public void logout() {
+        try {
+            connService.logout();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserSessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         setUserName(null);
         setUserPassword(null);

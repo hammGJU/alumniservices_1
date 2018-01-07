@@ -8,6 +8,7 @@ package edu.gju.alumni.alumniapp.services;
 import edu.gju.alumni.alumniapp.daos.annotations.ConnDAO;
 import edu.gju.alumni.alumniapp.Idaos.ConnectionDAO;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -61,6 +62,16 @@ public class ConnectionService {
             connection.close();
         }
 //        }
+    }
+
+    public String login(String userName, String userPassword) throws SQLException {
+        String userGroup = null;
+        userGroup = connectionDao.login(userName, userPassword);
+        return userGroup;
+    }
+
+    public void logout() throws SQLException {
+        connectionDao.logout();
     }
 
 }

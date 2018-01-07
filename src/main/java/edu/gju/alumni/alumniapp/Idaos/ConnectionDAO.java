@@ -6,9 +6,9 @@
 package edu.gju.alumni.alumniapp.Idaos;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import javax.ejb.Local;
 import javax.enterprise.inject.Default;
-import javax.naming.NamingException;
 
 /**
  *
@@ -18,8 +18,12 @@ import javax.naming.NamingException;
 @Default
 public interface ConnectionDAO {
 
-    public Connection getConnection() throws Exception;
+    public Connection getConnection() throws SQLException;
 
-    public void closeConnection() throws Exception;
+    public void closeConnection() throws SQLException;
+
+    public String login(String userName, String userPassword) throws SQLException;
+
+    public void logout() throws SQLException;
 
 }

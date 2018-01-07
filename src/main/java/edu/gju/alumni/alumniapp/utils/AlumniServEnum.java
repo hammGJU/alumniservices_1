@@ -10,6 +10,12 @@ package edu.gju.alumni.alumniapp.utils;
  * @author hesham
  */
 public enum AlumniServEnum {
+    // User goups:
+    ALUMNI("Alumni"),
+    ADMIN("Admin"),
+    REGISTRAR("Registrar"),
+    DSA("DSA"),
+    ACCOUNTANT("Accountant"),
     // Column Names: Students
     STUDENT_ID("STUDENT_ID"),
     STUDENT_FIRST_NAME("STUDENT_FIRST_NAME"),
@@ -50,6 +56,7 @@ public enum AlumniServEnum {
     //Column Names: user_group:
     USER_ID("USER_ID"),
     GROUP_ID("GROUP_ID"),
+    GROUP_NAME("GROUP_NAME"),
     //COLUMNS: email
     STUDENT_EMAIL("STUDENT_EMAIL"),
     //COLUMNS:COUNTRIES:
@@ -162,7 +169,9 @@ public enum AlumniServEnum {
             + "FROM CLEARANCE_STATUS, CLEARANCE WHERE STUDENT_ID=?"
             + "AND (CLEARANCE_STATUS.STATUS_ID=CLEARANCE.DSA_STATUS_ID )"),
     GET_CLEARANCE_STRING("SELECT CLEARANCE_STATUS.STATUS_ID, CLEARANCE_STATUS.STATUS_NAME "
-            + "FROM CLEARANCE_STATUS ORDER BY CLEARANCE_STATUS.STATUS_NAME");
+            + "FROM CLEARANCE_STATUS ORDER BY CLEARANCE_STATUS.STATUS_NAME"),
+    GET_ALL_USERS("SELECT USER_NAME, USER_PASSWORD, GROUP_NAME FROM V_USER_ROLE "
+            + "WHERE USER_NAME=?");
     private String columnName;
 
     private AlumniServEnum(String columnName) {
