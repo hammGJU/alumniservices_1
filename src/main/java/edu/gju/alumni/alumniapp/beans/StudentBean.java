@@ -25,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -43,6 +44,8 @@ public class StudentBean implements Serializable {
     private List<School> schools;
     private Department department;
     private List<Department> departments;
+    private boolean disabled;
+    int counter;
     @Inject
     private StudentService studentService;
     @Inject
@@ -62,6 +65,8 @@ public class StudentBean implements Serializable {
 
     @PostConstruct
     public void populateStudents() {
+        disabled = true;
+        counter = 0;
         schoolMap = new HashMap<>();
         school = new School();
         department = new Department();
@@ -266,6 +271,28 @@ public class StudentBean implements Serializable {
 
     public void setListOfStudents(List<Student> listOfStudents) {
         this.listOfStudents = listOfStudents;
+    }
+
+    public void onRowSelect() {
+
+        disabled = false;
+        counter += 1;
+
+    }
+
+    public void disableButton() {
+        if (counter > 0) {
+            counter = 0;
+            disabled = true;
+        }
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
 }

@@ -130,12 +130,17 @@
             <p:tab title="#{msgs.cleared_students}" id="clearance">
                 <h:form id="form_clearance" >
                     <p:dataTable id="clearanceStudentsTable" style="margin-bottom:0" var="student"
-                                 value="#{studentBean.studentList}" rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
+                                 value="#{studentBean.studentList}" rowKey="#{student.id}" rows="5" rowIndexVar="stdRow"
+                                 rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
                                  emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  >
                         <p:ajax event="rowSelectRadio"
-                                update=":tabs:form_clearance:clearanceStudentsTable"/>
+                                update=":tabs:form_clearance:clearanceStudentsTable"
+                                listener="#{studentBean.onRowSelect}"
+                                />
+                        <!--                        <p:ajax event="rowSelectRadio"
+                                                        update=":tabs:form_clearance:clearanceStudentsTable"/>-->
                         <f:facet name="header" class="ui-datatable-header">
                             <p:outputPanel >
                                 <!--<p:inputText id="globalFilter" style="float: top;width:150px" onkeyup="PF('graduatedStudentsTable').filter()"  placeholder="Enter keyword"/>-->
@@ -173,24 +178,24 @@
                                   sortBy="#{student.status.statusName}">
                             <h:outputText value="#{student.status.statusName}" />
                         </p:column>
-                        
+
                         <p:column headerText="#{msgs.clearance_status}" filterBy="#{student.status.statusName}" filterMatchMode="contains"
                                   styleClass="tableColumn"
                                   sortBy="#{student.clearance.registClearance}">
                             <h:outputText value="#{student.clearance.registClearance}" />
                         </p:column>
 
-                        <p:column headerText="#{msgs.clear_button}" styleClass="tableColumn">
-                            <p:toolbar style="border: none">
-                                <p:toolbarGroup>
-                                    <p:commandButton value="#{msgs.clear_button}" styleClass="commandButton"
-                                                     style="float: left" 
-                                                     disabled="#{studentBean.selectedStudent==null}"
-                                                     icon="ui-icon-edit" iconPos="1"
-                                                     ajax="false"                                                                  
-                                                     action="/registrar/clear_student" />
-                                </p:toolbarGroup>
-                            </p:toolbar>
+                        <p:column headerText="#{msgs.clear_button}" styleClass="tableColumn" >
+
+                            <p:commandButton id="clearanceButton"
+                                             value="#{msgs.clear_button}" styleClass="commandButton"
+                                             style="float: left" 
+                                             disabled="#{studentBean.disabled}"
+                                             ajax="false"
+                                             icon="ui-icon-edit" iconPos="1"
+                                             actionListener="#{studentBean.disableButton()}"
+                                             action="/registrar/clear_student" />
+
                         </p:column>
 
                         <f:facet name="footer" class="ui-datatable-footer">
