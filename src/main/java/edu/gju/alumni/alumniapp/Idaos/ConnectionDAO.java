@@ -5,8 +5,10 @@
  */
 package edu.gju.alumni.alumniapp.Idaos;
 
+import edu.gju.alumni.alumniapp.models.Student;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Map;
 import javax.ejb.Local;
 import javax.enterprise.inject.Default;
 
@@ -22,7 +24,7 @@ public interface ConnectionDAO {
 
     public void closeConnection() throws SQLException;
 
-    public String login(String userName, String userPassword) throws SQLException;
+    public Map<String, String> login(String userName, String userPassword) throws SQLException;
 
     public void logout() throws SQLException;
 

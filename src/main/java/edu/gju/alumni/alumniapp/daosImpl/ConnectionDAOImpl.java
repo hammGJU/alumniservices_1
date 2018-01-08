@@ -7,12 +7,21 @@ package edu.gju.alumni.alumniapp.daosImpl;
 
 import edu.gju.alumni.alumniapp.Idaos.ConnectionDAO;
 import edu.gju.alumni.alumniapp.daos.annotations.ConnDAO;
+import edu.gju.alumni.alumniapp.models.Student;
 import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
+import edu.gju.alumni.alumniapp.utils.PopulateModels;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.Local;
 import javax.ejb.Remove;
@@ -34,6 +43,15 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
 
     public ConnectionDAOImpl() {
 
+    }
+
+    @PostConstruct
+    public void init() {
+        try {
+            connection = dataSource.getConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConnectionDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -68,9 +86,9 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
     }
 
     @Override
-    public String login(String userName, String userPassowrd) throws SQLException {
-        String uGroup = null;
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_USERS.toString());
+    public Map<String, String> login(String userName, String userPassowrd) throws SQLException {
+        Map<String, String> uGroup = new HashMap<>();
+        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_USERS.toString());
         ps.setString(1, userName);
         ResultSet rs = ps.executeQuery();
         String ug = null;
@@ -81,27 +99,31 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
             un = rs.getString(AlumniServEnum.USER_NAME.toString());
             up = rs.getString(AlumniServEnum.PASSWORD.toString());
             if (userName.equals(un) && userPassowrd.equals(up)) {
-                switch (ug) {
-                    case "Admin":
-                        uGroup = AlumniServEnum.ADMIN.toString();
-                        break;
-                    case "Alumni":
-                        uGroup = AlumniServEnum.ALUMNI.toString();
-                        break;
-                    case "DSA":
-                        uGroup = AlumniServEnum.DSA.toString();
-                        break;
-                    case "Registrar":
-                        uGroup = AlumniServEnum.REGISTRAR.toString();
-                        break;
-                    case "Accountant":
-                        uGroup = AlumniServEnum.ACCOUNTANT.toString();
-                    default:
-                        uGroup = null;
-                }
+                uGroup.put(un, ug);
+                break;
             }
             break;
         }
+//        switch (ug) {
+//            case "Admin":
+//                uGroup.add(1, AlumniServEnum.ADMIN.toString());
+//                break;
+//            case "Alumni":
+//                uGroup.add(1, AlumniServEnum.ALUMNI.toString());
+//                break;
+//            case "DSA":
+//                uGroup.add(1, AlumniServEnum.DSA.toString());
+//                break;
+//            case "Registrar":
+//                uGroup.add(1, AlumniServEnum.REGISTRAR.toString());
+//                break;
+//            case "Accountant":
+//                uGroup.add(1, AlumniServEnum.ACCOUNTANT.toString());
+//                break;
+//            default:
+//                uGroup = null;
+//                break;
+//        }
         return uGroup;
     }
 

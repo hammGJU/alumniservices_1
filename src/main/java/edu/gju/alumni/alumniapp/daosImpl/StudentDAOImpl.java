@@ -10,6 +10,7 @@ import edu.gju.alumni.alumniapp.daos.annotations.StdDAO;
 import edu.gju.alumni.alumniapp.beans.UserSessionBean;
 import edu.gju.alumni.alumniapp.models.Email;
 import edu.gju.alumni.alumniapp.models.Student;
+import edu.gju.alumni.alumniapp.models.StudentJob;
 import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
 import edu.gju.alumni.alumniapp.utils.PopulateModels;
 import java.io.Serializable;
@@ -23,8 +24,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.ejb.Local;
 import javax.ejb.PostActivate;
+import javax.ejb.Remove;
 import javax.ejb.Stateless;
 
 /**
@@ -50,22 +53,12 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
     @PostActivate
     public void init() {
         try {
-            this.connection = super.getConnection();
-//        try {
-//            this.connection = dataSource.getConnection();
-////        if (sessionBean.getConnection() != null) {
-////            this.connection = sessionBean.getConnection();
-////        } else {
-////            try {
-////                this.connection = dataSource.getConnection();
-////            } catch (SQLException ex) {
-////                Logger.getLogger(StudentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-////            }
-////
-////        }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(StudentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+            if (connection == null) {
+                connection = super.getConnection();
+            } else {
+
+            }
+
         } catch (Exception ex) {
             Logger.getLogger(StudentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -76,7 +69,13 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
         List<Student> allStudents = new ArrayList<>();
         PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_STUDENTS_DSA_NOT_CLEARED.toString());
         ResultSet rs = ps.executeQuery();
+//        ps= connection.prepareStatement(AlumniServEnum.GET_STUDENT_JOB.toString());
+//        ResultSet rs2= ps.executeQuery();
         while (rs.next()) {
+//            StudentJob sJob= new StudentJob();
+//            while(rs2.next()){
+//                
+//            }
             Student s = PopulateModels.populateStudent(rs);
             allStudents.add(s);
         }
@@ -153,19 +152,24 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
         this.connection = connection;
     }
 
-//    public DataSource getDataSource() {
-//        return dataSource;
-//    }
-//
-//    public void setDataSource(DataSource dataSource) {
-//        this.dataSource = dataSource;
-//    }
     public UserSessionBean getSessionBean() {
         return sessionBean;
     }
 
     public void setSessionBean(UserSessionBean sessionBean) {
         this.sessionBean = sessionBean;
+    }
+
+    @PreDestroy
+    @Remove
+    public void destroyConnection() {
+        try {
+            if (!connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(StudentDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

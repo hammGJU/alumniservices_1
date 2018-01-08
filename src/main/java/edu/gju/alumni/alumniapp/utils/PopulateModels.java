@@ -54,7 +54,7 @@ public class PopulateModels {
         student.setDegree(degree);
         student.setGpa(rs.getDouble(AlumniServEnum.GPA.toString()));
         gender.setId(rs.getString(AlumniServEnum.GENDER_ID.toString()));
-        gender.setGenderName(AlumniServEnum.GENDER_NAME.toString());
+        gender.setGenderName(rs.getString(AlumniServEnum.GENDER_NAME.toString()));
         student.setGender(gender);
         status.setId(rs.getString(AlumniServEnum.STATUS_ID.toString()));
         status.setStatusName(rs.getString(AlumniServEnum.STATUS_NAME.toString()));
@@ -128,9 +128,9 @@ public class PopulateModels {
         school.setShcoolName(rs.getString(AlumniServEnum.SCHOOL_NAME.toString()));
         return school;
     }
-    
-    public static StudentClearance populateClearance(ResultSet rs) throws SQLException{
-        StudentClearance clearance= new StudentClearance();
+
+    public static StudentClearance populateClearance(ResultSet rs) throws SQLException {
+        StudentClearance clearance = new StudentClearance();
         clearance.setId(rs.getString(AlumniServEnum.STUDENT_ID.toString()));
         clearance.setDsaClearance(rs.getString(AlumniServEnum.DSA_STATUS_ID.toString()));
         clearance.setAccntClearance(rs.getString(AlumniServEnum.ACCOUNTANT_STATUS_ID.toString()));

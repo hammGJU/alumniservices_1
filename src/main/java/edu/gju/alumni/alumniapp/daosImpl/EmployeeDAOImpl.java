@@ -41,7 +41,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     @PostActivate
     public void init() {
         try {
-            this.connection = super.getConnection();
+//            this.connection = super.getConnection();
         } catch (Exception ex) {
             Logger.getLogger(EmployeeDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,7 +50,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     @Override
     public List<Employee> getAllEmployees() throws SQLException {
         List<Employee> employees = new ArrayList<>();
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_EMPLOYEES.toString());
+        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_EMPLOYEES.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             Employee e = PopulateModels.populateEmployee(rs);
@@ -63,7 +63,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
 
     @Override
     public Employee getEmployeeById(int id) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_EMPLOYEE_BY_ID.toString());
+        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_EMPLOYEE_BY_ID.toString());
         ps.setString(1, Integer.toString(id));
         ResultSet rs = ps.executeQuery();
         Employee employee = new Employee();
@@ -80,7 +80,9 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
         int result = 0;
         boolean committed = true;
         PreparedStatement ps;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
             ps = connection.prepareStatement(AlumniServEnum.INSERT_USER_GROUPS.toString());
             ps.setString(1, employee.getDepartment().getUserId());
@@ -122,7 +124,9 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
         int result = 0;
         boolean committed = true;
         PreparedStatement ps;
+        Connection connection = null;
         try {
+            connection = getConnection();
             connection.setAutoCommit(false);
 
             ps = connection.prepareStatement(AlumniServEnum.UPDATE_EMP_USER_GROUP.toString());
@@ -165,7 +169,9 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
         int result = 0;
         boolean committed = true;
         PreparedStatement ps;
+        Connection connection = null;
         try {
+            connection = getConnection();
             ps = connection.prepareStatement(AlumniServEnum.DELETE_EMP_USERS.toString());
             ps.setString(1, employeeId);
             result = ps.executeUpdate();
@@ -203,7 +209,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
     @Override
     public Map<Integer, String> getGroupsMap() throws SQLException {
         Map<Integer, String> groups = new HashMap<>();
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.SELECT_GROUPS.toString());
+        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.SELECT_GROUPS.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             groups.put(rs.getInt(AlumniServEnum.GROUP_ID.toString()), rs.getString(AlumniServEnum.EMPLOYEE_DEPARTMENT.toString()));
@@ -213,7 +219,7 @@ public class EmployeeDAOImpl extends ConnectionDAOImpl implements EmployeeDAO, S
 
     public int maxEmployeeId() throws SQLException {
         int maxId = 0;
-        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GENERATE_EMPLOYEE_ID.toString());
+        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GENERATE_EMPLOYEE_ID.toString());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             maxId = rs.getInt(AlumniServEnum.EMPLOYEE_ID.toString());
