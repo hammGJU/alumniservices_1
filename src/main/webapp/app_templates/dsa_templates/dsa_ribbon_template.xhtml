@@ -58,7 +58,7 @@
 
             <p:tab title="#{msgs.dsa_students}" >
                 <h:form id="table_students_form" style="direction:#{langBean.dir}; width:100%">
-                    <p:dataTable id="table_students" var="student"  value="#{studentBean.studentService.allStudents}" 
+                    <p:dataTable id="table_students" var="student"  value="#{studentBean.studentList}" 
                                  rowKey="#{student.id}" rows="5" rowsPerPageTemplate="5, 10, 20" selection="#{studentBean.selectedStudent}"
                                  emptyMessage="#{msgs.no_data}" paginator="true" paginatorPosition="top"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"

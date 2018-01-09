@@ -92,6 +92,8 @@ public class StudentDAOImpl extends ConnectionDAOImpl implements StudentDAO, Ser
         ps.setString(1, studentId);
         ResultSet rs = ps.executeQuery();
         emails = PopulateModels.populateEmail(rs);
+        rs.close();
+        ps.close();
         return emails;
 
     }

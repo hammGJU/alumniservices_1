@@ -12,16 +12,18 @@ import edu.gju.alumni.alumniapp.utils.AlumniServEnum;
 import edu.gju.alumni.alumniapp.utils.PopulateModels;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.Local;
-import javax.ejb.PostActivate;
 import javax.ejb.Stateless;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 /**
  *
@@ -70,6 +72,10 @@ public class AlumniEditDAOImpl extends ConnectionDAOImpl implements Serializable
         boolean committed = true;
         PreparedStatement ps;
         Connection connection = null;
+        
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String appDay = df.format(student.getDateOfBirth());
+        
         try {
             connection = getConnection();
 //            connection.setAutoCommit(false);
@@ -77,9 +83,9 @@ public class AlumniEditDAOImpl extends ConnectionDAOImpl implements Serializable
             ps = connection.prepareStatement(AlumniServEnum.EDIT_STUDENT.toString());
             ps.setString(1, student.getFirstName());
             ps.setString(2, student.getLastName());
-            ps.setDate(3, new Date(student.getDateOfBirth().getTime()));
+            ps.setString(3, appDay);
             ps.setString(4, student.getNationality());
-            ps.setString(5, student.getDepartment().getId());
+            ps.setString(5, student.getSchool().getId());
             ps.setString(6, student.getDepartment().getId());
             ps.setInt(7, student.getDegree().getId());
             ps.setDouble(8, student.getGpa());
@@ -122,6 +128,17 @@ public class AlumniEditDAOImpl extends ConnectionDAOImpl implements Serializable
             }
         }
         return result;
+    }
+
+    @Override
+    public Map<String, String> getJobStatusMap() throws SQLException {
+        Map<String, String> statusMap = new HashMap<>();
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.SELECT_STUDENT_JOB_STATUS.toString());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            statusMap.put((rs.getString(AlumniServEnum.STATUS_ID.toString())), rs.getString(AlumniServEnum.STATUS_NAME.toString()));
+        }
+        return statusMap;
     }
 
 }

@@ -138,4 +138,11 @@ public class PopulateModels {
         return clearance;
     }
 
+    public static StudentStatus populateStudentJobStatus(ResultSet rs) throws SQLException {
+        StudentStatus status = new StudentStatus();
+        status.setId(rs.getString(AlumniServEnum.STATUS_ID.toString()));
+        status.setStatusName(rs.getString(AlumniServEnum.STATUS_NAME.toString()));
+        return status;
+    }
+
 }

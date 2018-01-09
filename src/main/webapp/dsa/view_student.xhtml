@@ -79,7 +79,7 @@ and open the template in the editor.
                                      requiredMessage=" #{msgs.required_msg}">
                         </p:inputText>
                         <h:message for="student_email1" styleClass="errorMsg"/>
-                        
+
                         <p:outputLabel value="#{msgs.email} 2:" for="student_email2"/>
                         <p:inputText id="student_email2"
                                      value="#{viewStudent.student.email2}"
@@ -91,10 +91,21 @@ and open the template in the editor.
                         </p:inputText>
                         <h:message for="student_email2" styleClass="errorMsg"/>
 
+                        <p:outputLabel value="#{msgs.email_subject}" for="emailSubj"/>
+                        <p:inputText id="emailSubj"
+                                     value="#{viewStudent.subject}"
+                                     style="width:600px"
+                                     required="true"
+                                     maxlength="512"
+                                     disabled="false"
+                                     requiredMessage=" #{msgs.required_msg}">
+                        </p:inputText>
+                        <h:message for="emailSubj" styleClass="errorMsg"/>
+
                         <p:outputLabel value="#{msgs.email_body}:" for="email_msg"/>
                         <p:inputTextarea id="email_msg"
                                          rows="10" cols="50" style="width:600px"
-
+                                         value="#{viewStudent.message}"
                                          required="true"
                                          requiredMessage=" #{msgs.required_msg}">
                         </p:inputTextarea>

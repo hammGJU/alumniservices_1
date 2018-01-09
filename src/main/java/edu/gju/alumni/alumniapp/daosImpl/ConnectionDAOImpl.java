@@ -26,6 +26,7 @@ import javax.annotation.Resource;
 import javax.ejb.Local;
 import javax.ejb.Remove;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
 import javax.sql.DataSource;
 
 /**
@@ -55,7 +56,7 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
     }
 
     @Override
-//    @Produces
+    @Produces
     public Connection getConnection() throws SQLException {
         if (this.connection == null || this.connection.isClosed()) {
             this.connection = this.dataSource.getConnection();
@@ -88,7 +89,7 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
     @Override
     public Map<String, String> login(String userName, String userPassowrd) throws SQLException {
         Map<String, String> uGroup = new HashMap<>();
-        PreparedStatement ps = getConnection().prepareStatement(AlumniServEnum.GET_ALL_USERS.toString());
+        PreparedStatement ps = connection.prepareStatement(AlumniServEnum.GET_ALL_USERS.toString());
         ps.setString(1, userName);
         ResultSet rs = ps.executeQuery();
         String ug = null;
@@ -104,26 +105,6 @@ public class ConnectionDAOImpl implements ConnectionDAO, Serializable {
             }
             break;
         }
-//        switch (ug) {
-//            case "Admin":
-//                uGroup.add(1, AlumniServEnum.ADMIN.toString());
-//                break;
-//            case "Alumni":
-//                uGroup.add(1, AlumniServEnum.ALUMNI.toString());
-//                break;
-//            case "DSA":
-//                uGroup.add(1, AlumniServEnum.DSA.toString());
-//                break;
-//            case "Registrar":
-//                uGroup.add(1, AlumniServEnum.REGISTRAR.toString());
-//                break;
-//            case "Accountant":
-//                uGroup.add(1, AlumniServEnum.ACCOUNTANT.toString());
-//                break;
-//            default:
-//                uGroup = null;
-//                break;
-//        }
         return uGroup;
     }
 

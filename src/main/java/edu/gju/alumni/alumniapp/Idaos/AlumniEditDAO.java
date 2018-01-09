@@ -7,6 +7,7 @@ package edu.gju.alumni.alumniapp.Idaos;
 
 import edu.gju.alumni.alumniapp.models.Student;
 import java.sql.SQLException;
+import java.util.Map;
 import javax.ejb.Local;
 
 /**
@@ -17,6 +18,8 @@ import javax.ejb.Local;
 public interface AlumniEditDAO extends ConnectionDAO {
 
     public Student getAlumniInformation(String studentId) throws SQLException;
+
+    public Map<String, String> getJobStatusMap() throws SQLException;
 
     public int editAlumniInfo(Student student);
 

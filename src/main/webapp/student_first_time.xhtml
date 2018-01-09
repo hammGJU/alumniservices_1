@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.welcome_msg}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/general_templates/app_template.xhtml">
+            <h:form>
+
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                <p:wizard flowListener="#{userWizard.onFlowProcess}">
+                    <p:tab id="personal" title="#{msgs.student_info}">
+                        <p:panel header="#{msgs.personal_info}">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="#{msgs.student_fname_en}" />
+                                <p:inputText value="#{userWizard.student.firstName}" required="true" label="#{msgs.student_fname_en}"/>
+
+                                <h:outputText value="#{msgs.student_lname_en}" />
+                                <p:inputText value="#{userWizard.student.lastName}" required="true" label="#{userWizard.student.lastName}"/>
+
+                                <h:outputText value="#{msgs.student_id}" />
+                                <p:inputText value="#{userWizard.student.id}" />
+
+                                <h:outputText value="#{msgs.student_nationality}" />
+                                <p:inputText value="#{userWizard.student.nationality}" />
+
+                                <h:outputText value="#{msgs.gender}" />
+
+                                <h:panelGrid columns="1" style="margin: 10px" styleClass="ui-button-text-only">
+                                    <h:outputText value="#{msgs.gender}" />
+                                    <p:selectOneRadio id="gender" value="#{userWizard.student.gender.id}" columns="1" required="false">
+                                        <f:selectItem itemLabel="#{msgs.male}" itemValue="1" />
+                                        <f:selectItem itemLabel="#{msgs.female}" itemValue="2" />
+                                    </p:selectOneRadio>
+                                </h:panelGrid>
+
+                                <h:outputText value="#{msgs.student_dob}" />
+                                <p:calendar id="dob" value="#{userWizard.student.dateOfBirth}" showOn="button"/>
+
+                                <h:outputText value="Skip to last: " />
+                                <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="address" title="#{msgs.student_contact_info}">
+                        <p:panel header="#{msgs.student_contact_info}">
+                            <p:messages />
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:outputText value="#{msgs.email}1:" />
+                                <p:inputText value="#{userWizard.student.email1}" required="true" />
+
+                                <h:outputText value="#{msgs.email}2:" />
+                                <p:inputText value="#{userWizard.student.email2}" required="true" />
+
+
+                                <h:selectBooleanCheckbox value="#{userWizard.skip}" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                   
+
+                    <p:tab id="confirm" title="Confirmation">
+                        <p:panel header="Confirmation">
+                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Firstname: " />
+                                    <h:outputText value="#{userWizard.student.firstName}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Lastname: " />
+                                    <h:outputText value="#{userWizard.student.lastName}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Date of Birth: " />
+                                    <h:outputText value="#{userWizard.dateOfBirth}" styleClass="outputLabel"/>
+                                </h:panelGrid>
+
+                                <!--                                <h:panelGrid columns="2" columnClasses="label, value">
+                                                                    <h:outputText value="Street: " />
+                                                                    <h:outputText value="#{userWizard.user.street}" styleClass="outputLabel"/>
+                                
+                                                                    <h:outputText value="Postal: " />
+                                                                    <h:outputText value="#{userWizard.user.postalCode}" styleClass="outputLabel"/>
+                                
+                                                                    <h:outputText value="City: " />
+                                                                    <h:outputText value="#{userWizard.user.city}" styleClass="outputLabel"/>
+                                                                </h:panelGrid>-->
+
+                                <h:panelGrid columns="2" columnClasses="label, value">
+                                    <h:outputText value="Email1: " />
+                                    <h:outputText value="#{userWizard.student.email1}" styleClass="outputLabel"/>
+
+                                    <h:outputText value="Phone " />
+                                    <h:outputText value="#{userWizard.student.email2}" styleClass="outputLabel"/>
+
+                                    <!--                                    <h:outputText value="Info: " />
+                                                                        <h:outputText value="#{userWizard.user.info}" styleClass="outputLabel"/>-->
+
+                                    <h:outputText />
+                                    <h:outputText />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+                            <p:commandButton value="Submit" actionListener="#{userWizard.save}" update="growl" process="@this"/>
+                        </p:panel>
+                    </p:tab>
+                </p:wizard>
+
+            </h:form>
+        </ui:decorate>
+    </h:body>
+</html>
